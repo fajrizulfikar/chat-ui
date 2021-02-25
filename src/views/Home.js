@@ -4,7 +4,10 @@ import {
   Text,
   StyleSheet,
 } from 'react-native';
-import { Input } from 'react-native-elements';
+import { 
+  Input,
+  Button,
+} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/Feather';
 import FontRatio from '../libs/FontRatio';
 import GetOrientation from '../libs/GetOrientation';
@@ -23,7 +26,10 @@ const Home = () => {
         />
       </View>
       <View 
-        style={styles.formContainer}
+        style={[
+          styles.formContainer,
+          { maxHeight: GetOrientation() == 'landscape' ? '15%': '7%' }
+        ]}
       >
         <Text style={styles.formInfo}>
           Please enter your username to continue
@@ -39,6 +45,18 @@ const Home = () => {
           />
         </View>
       </View>
+      <View style={[
+        styles.buttonContainer,
+        { width: GetOrientation() == 'landscape' ? '29%' : '45%' }
+        ]}
+      >
+        <Button
+          title='Continue'
+          type='solid'
+          buttonStyle={styles.buttonBody}
+          titleStyle={styles.buttonTitle}
+        />
+      </View>
     </View>
   )
 };
@@ -49,7 +67,7 @@ const styles = StyleSheet.create({
   },
   appTitleContainer: {
     flex: 1,
-    maxHeight: '50%',
+    maxHeight: '45%',
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'flex-end',
@@ -70,6 +88,16 @@ const styles = StyleSheet.create({
   },
   formInput: {
     fontSize: FontRatio(10),
+  },
+  buttonContainer : {
+    alignSelf: 'center',
+  },
+  buttonBody: {
+    backgroundColor: 'rgb(55, 222, 85)',
+  },
+  buttonTitle: {
+    color: 'rgb(255, 255, 255)',
+    fontWeight: 'bold',
   },
 });
 
