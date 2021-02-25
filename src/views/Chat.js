@@ -5,9 +5,11 @@ import {
 } from 'react-native';
 
 const Chat = () => {
-  <View>
-    <Text>Chat</Text>
-  </View>
+  return (
+    <View>
+      <Text>Chat</Text>
+    </View>
+  )
 };
 
 export default Chat;
