@@ -4,7 +4,7 @@ import {
 } from 'react';
 import { Dimensions } from 'react-native';
 
-const GetOrientation = () => {
+const getOrientation = () => {
   const [orientation, setOrientation] = useState('portrait');
 
   useEffect(() => {
@@ -20,4 +20,4 @@ const GetOrientation = () => {
   return orientation;
 };
 
-export default GetOrientation;
+export default getOrientation;

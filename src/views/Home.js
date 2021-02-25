@@ -9,8 +9,8 @@ import {
   Button,
 } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/Feather';
-import FontRatio from '../libs/FontRatio';
-import GetOrientation from '../libs/GetOrientation';
+import getFontRatio from '../libs/screen/getFontRatio';
+import getOrientation from '../libs/screen/getOrientation';
 
 // green text color: rgb(55, 222, 85)
 
@@ -21,14 +21,14 @@ const Home = () => {
         <Text style={styles.appTitleDesc}>chattime</Text>
         <Icon 
           name='message-circle' 
-          size={FontRatio(40)} 
+          size={getFontRatio(40)} 
           color='rgb(55, 222, 85)' 
         />
       </View>
       <View 
         style={[
           styles.formContainer,
-          { maxHeight: GetOrientation() == 'landscape' ? '15%': '7%' }
+          { maxHeight: getOrientation() == 'landscape' ? '15%': '7%' }
         ]}
       >
         <Text style={styles.formInfo}>
@@ -36,7 +36,7 @@ const Home = () => {
         </Text>
         <View
           style={{
-            width: GetOrientation() == 'landscape' ? '30%' : '50%'
+            width: getOrientation() == 'landscape' ? '30%' : '50%'
           }}
         >
           <Input
@@ -47,7 +47,7 @@ const Home = () => {
       </View>
       <View style={[
         styles.buttonContainer,
-        { width: GetOrientation() == 'landscape' ? '29%' : '45%' }
+        { width: getOrientation() == 'landscape' ? '29%' : '45%' }
         ]}
       >
         <Button
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
   },
   appTitleDesc: {
-    fontSize: FontRatio(40),
+    fontSize: getFontRatio(40),
   },
   formContainer: {
     flex: 1,
@@ -82,12 +82,12 @@ const styles = StyleSheet.create({
     marginTop: '3%',
   },
   formInfo: {
-    fontSize: FontRatio(10),
+    fontSize: getFontRatio(10),
     fontWeight: '300',
     color: 'grey',
   },
   formInput: {
-    fontSize: FontRatio(10),
+    fontSize: getFontRatio(10),
   },
   buttonContainer : {
     alignSelf: 'center',

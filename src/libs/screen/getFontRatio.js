@@ -8,7 +8,7 @@ const { width, height } = Dimensions.get('window');
 
 const scale = width / 320;
 
-const FontRatio = (size) => {
+const getFontRatio = (size) => {
   const newSize = size * scale;
 
   if (Platform.OS == 'ios') {
@@ -18,4 +18,4 @@ const FontRatio = (size) => {
   }
 };
 
-export default FontRatio;
+export default getFontRatio;
