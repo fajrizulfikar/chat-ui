@@ -11,10 +11,17 @@ import {
 import Icon from 'react-native-vector-icons/Feather';
 import getFontRatio from '../libs/screen/getFontRatio';
 import getOrientation from '../libs/screen/getOrientation';
+import inputUsername from '../libs/logic/inputUsername';
+import navigateToAnotherPage from '../libs/logic/navigateToAnotherPage';
 
 // green text color: rgb(55, 222, 85)
 
-const Home = () => {
+const Home = (props) => {
+  const { navigation } = props;
+
+  const { handleTextChange, username } = inputUsername();
+  const { handleNavigate } = navigateToAnotherPage();
+
   return (
     <View style={styles.body}>
       <View style={styles.appTitleContainer}>
@@ -42,6 +49,7 @@ const Home = () => {
           <Input
             placeholder='Username'
             style={styles.formInput}
+            onChangeText={handleTextChange}
           />
         </View>
       </View>
@@ -55,6 +63,11 @@ const Home = () => {
           type='solid'
           buttonStyle={styles.buttonBody}
           titleStyle={styles.buttonTitle}
+          onPress={() => handleNavigate({
+            params: username,
+            screen: 'Chat',
+            navigation,
+          })}
         />
       </View>
     </View>
