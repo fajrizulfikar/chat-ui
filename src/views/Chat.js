@@ -10,25 +10,32 @@ import {
 import Icon from 'react-native-vector-icons/Feather';
 import getFontRatio from '../libs/screen/getFontRatio';
 import getOrientation from '../libs/screen/getOrientation';
+import inputChat from '../libs/logic/inputChat';
+import fetchMessages from '../services/fetchMessages';
 
-const Chat = () => {
+const Chat = ({ route }) => {
+  const { params } = route.params;
+  const messages = fetchMessages();
+
+  const { handleTextChange, chat } = inputChat();
+
   const renderItem = ({item, index}) => {
-    if (item == 'bulek') {
+    if (item.username == params) {
       return (
         <View
-          key={`${item}_chat`}
+          key={`user_${item.username}`}
           style={styles.footerTextRightContainer}
         >
-          <Text style={styles.footerTextRight}>{item}</Text>
+          <Text style={styles.footerTextRight}>{item.text}</Text>
         </View>
       )
     } else {
       return (
         <View
-          key={`${item}_chat`}
+          key={`user_${item.username}`}
           style={styles.footerTextLeftContainer}
         >
-          <Text style={styles.footerTextLeft}>{item}</Text>
+          <Text style={styles.footerTextLeft}>{item.text}</Text>
         </View>
       )
     }
@@ -37,8 +44,8 @@ const Chat = () => {
   return (
     <View style={styles.body}>
       <FlatList
-        // inverted={true}
-        data={['belek', 'bulek', 'balek']}
+        inverted={true}
+        data={messages}
         renderItem={renderItem}
       />
       <View 
@@ -51,10 +58,22 @@ const Chat = () => {
           <TextInput
             multiline
             numberOfLines={1}
+            onChangeText={handleTextChange}
             style={{ textAlignVertical: 'top' }}
           />
         </View>
-        <TouchableOpacity style={styles.footerButtonContainer}>
+        <TouchableOpacity 
+          style={styles.footerButtonContainer}
+          // onPress={() => {
+          //   socket.emit(
+          //     'chat message',
+          //     JSON.stringify({
+          //       text: 'This is a test message',
+          //       username: params,
+          //     })
+          //   )
+          // }}
+        >
           <Icon
             name='send'
             size={getFontRatio(25)}
