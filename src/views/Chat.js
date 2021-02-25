@@ -7,11 +7,16 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
+import { io } from 'socket.io-client';
 import Icon from 'react-native-vector-icons/Feather';
 import getFontRatio from '../libs/screen/getFontRatio';
 import getOrientation from '../libs/screen/getOrientation';
 import inputChat from '../libs/logic/inputChat';
 import fetchMessages from '../services/fetchMessages';
+
+const URL = 'http://10.0.3.2:3000';
+
+const socket = io(URL);
 
 const Chat = ({ route }) => {
   const { params } = route.params;
@@ -64,15 +69,15 @@ const Chat = ({ route }) => {
         </View>
         <TouchableOpacity 
           style={styles.footerButtonContainer}
-          // onPress={() => {
-          //   socket.emit(
-          //     'chat message',
-          //     JSON.stringify({
-          //       text: 'This is a test message',
-          //       username: params,
-          //     })
-          //   )
-          // }}
+          onPress={() => {
+            socket.emit(
+              'chat message',
+              JSON.stringify({
+                text: chat,
+                username: params,
+              })
+            )
+          }}
         >
           <Icon
             name='send'
@@ -111,6 +116,8 @@ const styles = StyleSheet.create({
   footerTextRightContainer: {
     alignSelf: 'flex-end',
     marginRight: 20,
+    marginBottom: 6,
+    marginTop: 6,
   },
   footerTextRight: {
     borderRadius: 10,
