@@ -4,7 +4,7 @@ import {
 } from 'react';
 import { io } from 'socket.io-client';
 
-const URL = 'http://10.0.3.2:3000';
+const URL = 'https://infinite-hamlet-96052.herokuapp.com';
 
 const socket = io(URL);
 

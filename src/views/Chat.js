@@ -14,7 +14,7 @@ import getOrientation from '../libs/screen/getOrientation';
 import inputChat from '../libs/logic/inputChat';
 import fetchMessages from '../services/fetchMessages';
 
-const URL = 'http://10.0.3.2:3000';
+const URL = 'https://infinite-hamlet-96052.herokuapp.com';
 
 const socket = io(URL);
 
@@ -28,7 +28,7 @@ const Chat = ({ route }) => {
     if (item.username == params) {
       return (
         <View
-          key={`user_${item.username}`}
+          key={`user_${String(item.username)}`}
           style={styles.footerTextRightContainer}
         >
           <Text style={styles.footerTextRight}>{item.text}</Text>
@@ -37,7 +37,7 @@ const Chat = ({ route }) => {
     } else {
       return (
         <View
-          key={`user_${item.username}`}
+          key={`user_${String(item.username)}`}
           style={styles.footerTextLeftContainer}
         >
           <Text style={styles.footerTextLeft}>{item.text}</Text>
