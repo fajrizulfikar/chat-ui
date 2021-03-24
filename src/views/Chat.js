@@ -12,23 +12,24 @@ import Icon from 'react-native-vector-icons/Feather';
 import getFontRatio from '../libs/screen/getFontRatio';
 import getOrientation from '../libs/screen/getOrientation';
 import inputChat from '../libs/logic/inputChat';
-import fetchMessages from '../services/fetchMessages';
+import useChat from '../services/useChat';
 
-const URL = 'http://10.0.3.2:3000';
+const URL = 'https://infinite-hamlet-96052.herokuapp.com';
 
 const socket = io(URL);
 
 const Chat = ({ route }) => {
   const { params } = route.params;
-  const messages = fetchMessages();
+  const { messages, sendMessage } = useChat();
 
   const { handleTextChange, chat } = inputChat();
+  console.log('chat check value', chat);
 
   const renderItem = ({item, index}) => {
     if (item.username == params) {
       return (
         <View
-          key={`user_${item.username}`}
+          key={`user_${String(item.username)}`}
           style={styles.footerTextRightContainer}
         >
           <Text style={styles.footerTextRight}>{item.text}</Text>
@@ -37,7 +38,7 @@ const Chat = ({ route }) => {
     } else {
       return (
         <View
-          key={`user_${item.username}`}
+          key={`user_${String(item.username)}`}
           style={styles.footerTextLeftContainer}
         >
           <Text style={styles.footerTextLeft}>{item.text}</Text>
@@ -63,6 +64,7 @@ const Chat = ({ route }) => {
           <TextInput
             multiline
             numberOfLines={1}
+            value={chat}
             onChangeText={handleTextChange}
             style={{ textAlignVertical: 'top' }}
           />
@@ -70,13 +72,11 @@ const Chat = ({ route }) => {
         <TouchableOpacity 
           style={styles.footerButtonContainer}
           onPress={() => {
-            socket.emit(
-              'chat message',
-              JSON.stringify({
-                text: chat,
-                username: params,
-              })
-            )
+            handleTextChange(''),
+            sendMessage({
+              message: chat,
+              username: params,
+            })
           }}
         >
           <Icon
